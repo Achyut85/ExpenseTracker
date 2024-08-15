@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Nunito", sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  overflow: hidden;
+  color:rgba(34, 34, 96, 0.6);
+}
+
+
+h1, h2, h3, h4, h5, h6{
+  @apply  !text-primary font-serif
+}
+
+@layer utilities {
+  .hide-scrollbar {
+    overflow: auto; /* Ensure the element is scrollable */
+    -ms-overflow-style: none; /* Hide scrollbar in Internet Explorer and Edge */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar in WebKit browsers */
+    height: 0;
+  }
+  
+
+  .background-style{
+    @apply bg-slate-100 border-2 border-white shadow-md p-4 rounded-xl
+  }
+
+  .inner-layout {
+    @apply py-8 px-6 w-full
+   }
+ 
+ .list{
+   @apply grid grid-cols-[25px,auto] relative my-2 mx-0 font-bold cursor-pointer
+   transition-all text-black text-opacity-[0.5] pl-4 items-center
+ }
+ 
+ .input{
+   @apply font-inherit text-inherit outline-none
+   py-2 px-4 rounded-md border-2 border-white bg-transparent
+   resize-none shadow-md text-sm placeholder:text-primary-3 
+ }
+ .error{
+  animation: error-animation 500ms ease-in-out;
+  @apply text-red-600 text-sm
+ }
+
+ .p{
+  @apply flex items-center gap-2 text-primary opacity-80
+}
+
+}
+
+
+
+@keyframes error-animation {
+  0%{
+    transform:translateX(0);
+  }
+  25%{
+    transform:translateX(10px);
+  }
+  50%{
+    transform:translateX(-10px);
+  }
+  75%{
+    transform:translateX(10px);
+  }
+  100%{
+    transform:translateX(0);
+  }
+}
