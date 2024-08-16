@@ -3,7 +3,7 @@ import axios from "axios";
 
 const GlobalContext = createContext();
 
-const API_URL = "http://localhost:3000/api/tr/";
+const API_URL = "http://localhost:4000/api/tr/";
 
 export const GlobalProvider = ({children}) =>{
     const [incomes , setIncomes] = useState([])
