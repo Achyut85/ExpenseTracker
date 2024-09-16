@@ -3,12 +3,11 @@ import IncomeForm from "../components/IncomeForm";
 import { useGlobalContext } from "../components/GlobalContext"
 import Items from "../components/Items";
 import { icons } from "../utils/icons";
-const Incomes = () => {
-  const { incomes, getIncome, deleteIncome, totalIncome } = useGlobalContext();
+const Incomes = ({userId}) => {
+  const { incomes, getIncome, deleteIncome, totalIncome, loggedInId } = useGlobalContext();
   useEffect(() => {
-    getIncome()
-  }, [])
-
+    getIncome(loggedInId)
+  }, [loggedInId])
 
 
   console.log(incomes)

@@ -1,23 +1,24 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Nav from "./Nav"
 import Dashbord  from "../pages/Dashbord";
 import Incomes from "../pages/Incomes";
 import Expenses from "../pages/Expenses";
 import Transaction from "../pages/Transaction";
+
 const MainLayout = () => {
   const [active, setActive] = useState(1);
   const displayData = () =>{
     switch(active){
       case 1: 
-        return <Dashbord/>
+      return <Dashbord />
       case 2:
         return <Transaction/>
       case 3:
-        return <Incomes/>
+        return <Incomes />
       case 4:
-        return <Expenses/>
+        return <Expenses />
       default:
-        return <Dashbord/>
+        return <Dashbord />
     }
   }
   return (

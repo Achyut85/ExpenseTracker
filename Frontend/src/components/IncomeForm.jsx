@@ -5,40 +5,53 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from "./Button";
 import { icons } from "../utils/icons";
 const IncomeForm = () => {
-    const {addIncome,error,setError} = useGlobalContext();
+    const {addIncome,error,setError,loggedInId} = useGlobalContext();
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
         date: null,
         category: '',
         description: '',
+        user_id:''
     })
     useEffect(() =>{
         setError('');
     },[])
-
-    const {title, amount, date ,  category, description} = inputState;
+    
+    useEffect(() => {
+       
+            setInputState(prevState => ({
+                ...prevState,
+                user_id: Number(loggedInId)
+            }));
+        }
+        
+    , [loggedInId]);
+    const {title, amount, date , category, description} = inputState;
     const handleInput = (name) => (e) =>{
         setInputState({...inputState, [name]: e.target.value})
-        setError('');
-        
-        
+        setError(''); 
     }
-
+    
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        console.log("Form data before submission:", inputState);
         const result = await addIncome({
             ...inputState,
-            amount: Number(amount),  // Ensure amount is a number
+            amount: Number(amount),
+             // Ensure amount is a number
         });
-        setInputState({
-            title: '',
-            amount: '',
-            date: null,
-            category: '',
-            description: '',
-        }
-        )
+       
+            setInputState({
+                title: '',
+                amount: '',
+                date: null,
+                category: '',
+                description: '',
+                user_id: Number(loggedInId) 
+            });
+        
+     
 
     }
   return (
@@ -47,7 +60,7 @@ const IncomeForm = () => {
     >
         <div >
         {
-            error&& <p className="error ">{error}</p>
+            error && <p className="error ">{error}</p>
         }
             <input 
                 type="text"

@@ -4,11 +4,11 @@ import { useGlobalContext } from "../components/GlobalContext"
 import { useEffect } from "react"
 import History from "../components/History"
 const Dashbord = () => {
-  const { totalIncome, totalExpense, totalBalance, getExpense, getIncome, incomes, expenses } = useGlobalContext();
+  const { totalIncome, totalExpense, totalBalance, getExpense, getIncome, incomes, expenses,loggedInId } = useGlobalContext();
   useEffect(() => {
-    getIncome()
-    getExpense()
-  }, [])
+    getIncome(loggedInId)
+    getExpense(loggedInId)
+  }, [loggedInId])
 
 
   return (

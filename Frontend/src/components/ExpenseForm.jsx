@@ -5,17 +5,25 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from "./Button";
 import { icons } from "../utils/icons";
 const ExpenseForm = () => {
-    const {addExpense,error,setError} = useGlobalContext();
+    const {addExpense,error,setError,loggedInId} = useGlobalContext();
     const [inputState, setInputState] = useState({
         title: '',
         amount: '',
         date: null,
         category: '',
         description: '',
+        user_id:''
     })
     useEffect(() =>{
         setError('');
     },[]);
+    useEffect(() => {
+            setInputState(prevState => ({
+                ...prevState,
+                user_id: Number(loggedInId)
+            }));
+    }, [loggedInId]);
+  
     const {title, amount, date ,  category, description} = inputState;
     const handleInput = (name) => (e) =>{
         setInputState({...inputState, [name]: e.target.value})
@@ -29,14 +37,16 @@ const ExpenseForm = () => {
             ...inputState,
             amount: Number(amount),  // Ensure amount is a number
         });
-        setInputState({
-            title: '',
-            amount: '',
-            date: null,
-            category: '',
-            description: '',
-        }
-        )
+       
+            setInputState({
+                title: '',
+                amount: '',
+                date: null,
+                category: '',
+                description: '',
+                user_id: Number(loggedInId) // Preserve user_id when resetting the form
+            });
+        
 
     }
   return (

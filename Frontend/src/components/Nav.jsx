@@ -1,14 +1,32 @@
 import { menuItem } from "../utils/menu"
 import { icons } from "../utils/icons"
+import { useNavigate } from "react-router-dom";
+import { handleSuccess } from "../utils/authUtils";
+import { ToastContainer } from "react-toastify";
+import { useGlobalContext } from "./GlobalContext";
+
 const SignOut = icons.logout;
 
 const Nav = ({active, setActive}) => {
+    const {loggedInName} = useGlobalContext();
+   
+    const navigate = useNavigate();
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName')
+        localStorage.removeItem('userId')
+        handleSuccess("User SignOut");
+        setTimeout(() => {
+            navigate('/signin');
+        }, 1000);
+    }
+
   return (
     <div className="py-8 px-6 w-[300px] h-full bg-slate-100  border-[3px] border-white  rounded-[32px] backdrop-blur-[4.5px] flex flex-col justify-between gap-8 max-md:flex-row max-md:w-[100%] max-md:h-[100px] max-md:items-center">
         <div className="h-[100px] flex items-center gap-4 max-md:w-full max-md:justify-between ">
             <img src="#" alt=" " className="w-[80px] h-[80px] rounded-full object-cover border-[3px] border-white shadow-md"/> 
             <div>
-                <h2 className="text-black font-bold">Achyut</h2>
+                <h2 className="text-black font-bold">{loggedInName}</h2>
                 <p className="text-black text-opacity-[0.5]">Your Money</p>
             </div>
         </div>
@@ -29,8 +47,9 @@ const Nav = ({active, setActive}) => {
             }
         </ul>
         <div className="max-md:hidden">
-            <li className="list-none list " ><SignOut/> Sign Out</li>
+            <li className="list-none list " onClick={handleSignOut}><SignOut/> Sign Out</li>
         </div>
+        <ToastContainer/>
     </div>
   )
 }
